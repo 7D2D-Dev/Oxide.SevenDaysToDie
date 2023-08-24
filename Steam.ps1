@@ -278,7 +278,7 @@ function Start-Deobfuscator {
 function Get-Patcher {
     # TODO: MD5 comparison of local patcher file and remote header
     # Check if patcher is already downloaded
-    #if (!(Test-Path $patcher_exe) -or (Get-Item $patcher_exe).LastWriteTime -lt (Get-Date).AddDays(-7)) {
+    if (!(Test-Path $patcher_exe) -or (Get-Item $patcher_exe).LastWriteTime -lt (Get-Date).AddDays(-7)) {
         # Download latest patcher build
         Write-Host "Downloading latest patcher"
         try {
@@ -289,9 +289,9 @@ function Get-Patcher {
             if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
             exit 1
         }
-    #} else {
-    #    Write-Host "Recent build of patcher already downloaded"
-    #}
+    } else {
+        Write-Host "Recent build of patcher already downloaded"
+    }
 
     Start-Patcher
 }
